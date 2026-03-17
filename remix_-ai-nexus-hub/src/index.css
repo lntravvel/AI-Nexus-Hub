@@ -128,6 +128,7 @@
   body, html {
     overflow-x: hidden;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
   }
   
   .max-w-7xl, .max-w-5xl {
@@ -156,6 +157,15 @@
     justify-content: center !important;
   }
 
+  /* Hero Section Compact */
+  section .text-4xl {
+    font-size: 1.75rem !important;
+  }
+  section .text-6xl, section .text-7xl {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
   /* Mobile Card Grid */
   .mobile-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -164,7 +174,7 @@
 
   /* Compact Cards */
   .mobile-grid .h-48, .mobile-grid .h-40 {
-    height: 96px !important; /* h-24 */
+    height: 96px !important;
   }
   .mobile-grid .p-6, .mobile-grid .p-5 {
     padding: 10px !important;
@@ -205,5 +215,32 @@
     min-height: 44px !important;
     font-size: 11px !important;
     padding: 4px !important;
+  }
+
+  /* Performance: reduce animations on mobile */
+  .animate-float {
+    animation: none !important;
+  }
+  .animate-pulse-glow {
+    animation: none !important;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3) !important;
+  }
+  .data-flow-bg {
+    animation: none !important;
+  }
+  .scan-line {
+    display: none !important;
+  }
+
+  /* Smooth scrolling for lists */
+  .overflow-x-hidden, .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* GPU acceleration hints */
+  .glass-panel {
+    will-change: transform;
+    transform: translateZ(0);
   }
 }

@@ -801,14 +801,14 @@ const CategoryDetailsScreen = ({ category, onToolClick, lang }: { category: Cate
       exit={{ opacity: 0, y: -20 }}
       className="flex-1 bg-grid-pattern-light dark:bg-grid-pattern"
     >
-      <div className="bg-slate-900 text-white py-20 px-4 text-center relative overflow-hidden data-flow-bg">
+      <div className="bg-slate-900 text-white py-10 md:py-20 px-4 text-center relative overflow-hidden data-flow-bg">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-600/20 to-transparent"></div>
         <div className="max-w-3xl mx-auto relative z-10">
-          <div className={`size-20 mx-auto rounded-3xl bg-white/10 flex items-center justify-center mb-8 ${category.color} animate-float backdrop-blur-md border border-white/10`}>
-            <IconComponent className="w-10 h-10" />
+          <div className={`size-14 md:size-20 mx-auto rounded-2xl md:rounded-3xl bg-white/10 flex items-center justify-center mb-4 md:mb-8 ${category.color} animate-float backdrop-blur-md border border-white/10`}>
+            <IconComponent className="w-7 h-7 md:w-10 md:h-10" />
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-gradient">{lang === 'en' ? category.nameEn : category.nameAr}</h1>
-          <p className="max-w-2xl mx-auto text-slate-300 text-lg md:text-xl leading-relaxed">{lang === 'en' ? category.descriptionEn : category.descriptionAr}</p>
+          <h1 className="text-3xl md:text-6xl font-extrabold mb-3 md:mb-6 text-gradient">{lang === 'en' ? category.nameEn : category.nameAr}</h1>
+          <p className="max-w-2xl mx-auto text-slate-300 text-sm md:text-xl leading-relaxed">{lang === 'en' ? category.descriptionEn : category.descriptionAr}</p>
         </div>
       </div>
 
@@ -818,12 +818,12 @@ const CategoryDetailsScreen = ({ category, onToolClick, lang }: { category: Cate
         {renderToolList(paidTools, t.paid)}
 
         {categoryTools.length > 0 && (
-          <div className="mt-20">
-            <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-              <div className="w-2 h-8 bg-purple-600 rounded-full animate-pulse-glow"></div>
+          <div className="mt-10 md:mt-20">
+            <h2 className="text-xl md:text-3xl font-bold mb-4 md:mb-8 flex items-center gap-3">
+              <div className="w-2 h-6 md:h-8 bg-purple-600 rounded-full animate-pulse-glow"></div>
               {t.comparison}
             </h2>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 md:gap-4">
               {/* Desktop Header */}
               <div className="hidden md:grid grid-cols-12 gap-4 p-5 bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md rounded-t-2xl font-bold text-slate-900 dark:text-white text-sm glass-panel glow-border mb-[-1rem] relative z-10">
                 <div className="col-span-4">{t.toolName}</div>
@@ -833,34 +833,23 @@ const CategoryDetailsScreen = ({ category, onToolClick, lang }: { category: Cate
                 <div className="col-span-2 text-end"></div>
               </div>
               
-              <div className="flex flex-col gap-4 md:gap-0 md:divide-y divide-slate-200/50 dark:divide-slate-700/50 glass-panel glow-border rounded-2xl md:rounded-t-none overflow-hidden relative z-0 md:pt-4">
+              <div className="flex flex-col gap-0 divide-y divide-slate-200/50 dark:divide-slate-700/50 glass-panel glow-border rounded-2xl md:rounded-t-none overflow-hidden relative z-0 md:pt-4">
                 {categoryTools.map(tool => (
                   <div 
                     key={tool.id} 
                     onClick={() => onToolClick(tool)}
-                    className="flex flex-col md:grid md:grid-cols-12 md:items-center gap-4 p-5 hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors group cursor-pointer border-b md:border-none border-slate-200/50 dark:border-slate-700/50 last:border-none"
+                    className="flex items-center gap-3 p-3 md:p-5 md:grid md:grid-cols-12 md:items-center md:gap-4 hover:bg-white/40 dark:hover:bg-slate-800/40 transition-colors group cursor-pointer"
                   >
-                    <div className="col-span-4 flex items-center justify-between md:justify-start gap-4">
-                      <div className="flex items-center gap-4">
-                        <div className="size-12 md:size-10 rounded-xl md:rounded-lg bg-slate-100 dark:bg-slate-900 overflow-hidden shadow-inner shrink-0">
-                          <img src={tool.logo} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" referrerPolicy="no-referrer" />
-                        </div>
-                        <span className="font-bold text-lg md:text-base group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{lang === 'en' ? tool.nameEn : tool.nameAr}</span>
+                    {/* Mobile: compact single row | Desktop: grid */}
+                    <div className="md:col-span-4 flex items-center gap-2 md:gap-4 flex-1 min-w-0">
+                      <div className="size-8 md:size-10 rounded-lg bg-slate-100 dark:bg-slate-900 overflow-hidden shadow-inner shrink-0">
+                        <img src={tool.logo} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" />
                       </div>
-                      <a 
-                        href={tool.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="md:hidden inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors shadow-md shadow-blue-600/20"
-                      >
-                        {t.tryNow}
-                      </a>
+                      <span className="font-bold text-sm md:text-base group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">{lang === 'en' ? tool.nameEn : tool.nameAr}</span>
                     </div>
                     
-                    <div className="col-span-2 flex items-center justify-between md:justify-start">
-                      <span className="md:hidden text-xs text-slate-500 font-bold uppercase">{t.pricing}</span>
-                      <span className={`px-3 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider ${
+                    <div className="md:col-span-2 flex items-center shrink-0">
+                      <span className={`px-2 md:px-3 py-1 rounded-md text-[10px] md:text-xs font-bold uppercase tracking-wider ${
                         tool.pricingType === 'free' ? 'bg-green-500/20 text-green-700 dark:text-green-400' :
                         tool.pricingType === 'freemium' ? 'bg-blue-500/20 text-blue-700 dark:text-blue-400' :
                         'bg-purple-500/20 text-purple-700 dark:text-purple-400'
@@ -869,27 +858,25 @@ const CategoryDetailsScreen = ({ category, onToolClick, lang }: { category: Cate
                       </span>
                     </div>
                     
-                    <div className="col-span-3 flex items-center justify-between md:justify-start">
-                      <span className="md:hidden text-xs text-slate-500 font-bold uppercase">{t.audience}</span>
-                      <span className="text-slate-600 dark:text-slate-400 font-medium text-sm md:text-base text-end md:text-start">
+                    <div className="hidden md:flex md:col-span-3 items-center">
+                      <span className="text-slate-600 dark:text-slate-400 font-medium text-base">
                         {lang === 'en' ? tool.targetAudienceEn : tool.targetAudienceAr}
                       </span>
                     </div>
                     
-                    <div className="col-span-1 flex items-center justify-between md:justify-start">
-                      <span className="md:hidden text-xs text-slate-500 font-bold uppercase">{t.release}</span>
-                      <span className="text-slate-500 dark:text-slate-500 font-mono text-sm md:text-xs">
+                    <div className="hidden md:flex md:col-span-1 items-center">
+                      <span className="text-slate-500 dark:text-slate-500 font-mono text-xs">
                         {tool.releaseYear || '-'}
                       </span>
                     </div>
 
-                    <div className="col-span-2 hidden md:flex justify-end">
+                    <div className="md:col-span-2 flex justify-end shrink-0">
                       <a 
                         href={tool.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold text-sm transition-colors shadow-md shadow-blue-600/20"
+                        className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg font-bold text-xs md:text-sm transition-colors shadow-md shadow-blue-600/20"
                       >
                         {t.tryNow}
                       </a>
@@ -960,33 +947,33 @@ const ToolModal = ({ tool, isSaved, onToggleSave, onClose, lang }: { tool: Tool,
             <X className="w-6 h-6" />
           </button>
 
-          <header className="p-8 flex flex-col items-center text-center gap-6 relative overflow-hidden data-flow-bg">
+          <header className="p-4 md:p-8 flex flex-col items-center text-center gap-3 md:gap-6 relative overflow-hidden data-flow-bg">
             <div className="absolute inset-0 bg-grid-pattern-light dark:bg-grid-pattern opacity-50"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-blue-600/10 to-transparent"></div>
             <div className="w-full flex justify-end relative z-10">
               <button 
                 onClick={() => onToggleSave(tool.id)}
-                className={`p-3 rounded-full transition-colors ${isSaved ? 'text-blue-600 bg-blue-600/10' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 glass-panel'}`}
+                className={`p-2 md:p-3 rounded-full transition-colors ${isSaved ? 'text-blue-600 bg-blue-600/10' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 glass-panel'}`}
               >
-                <Bookmark className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
+                <Bookmark className={`w-5 h-5 md:w-6 md:h-6 ${isSaved ? 'fill-current' : ''}`} />
               </button>
             </div>
-        <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-0.5 shadow-2xl shadow-blue-600/30 animate-float relative z-10">
-          <div className="w-full h-full bg-white dark:bg-[#0a0f1a] rounded-[14px] flex items-center justify-center overflow-hidden">
+        <div className="w-16 h-16 md:w-28 md:h-28 rounded-xl md:rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-0.5 shadow-2xl shadow-blue-600/30 relative z-10">
+          <div className="w-full h-full bg-white dark:bg-[#0a0f1a] rounded-[10px] md:rounded-[14px] flex items-center justify-center overflow-hidden">
             <img src={tool.logo} alt={lang === 'en' ? tool.nameEn : tool.nameAr} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
         </div>
         <div className="space-y-2 relative z-10">
-          <h2 className="text-4xl font-extrabold tracking-tight text-gradient">{lang === 'en' ? tool.nameEn : tool.nameAr}</h2>
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <span className="px-3 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded-full text-sm font-bold">
+          <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-gradient">{lang === 'en' ? tool.nameEn : tool.nameAr}</h2>
+          <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap">
+            <span className="px-2 md:px-3 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 rounded-full text-xs md:text-sm font-bold">
               {CATEGORIES.find(c => c.id === tool.category)?.[lang === 'en' ? 'nameEn' : 'nameAr'] || tool.category}
             </span>
-            <span className="px-3 py-1 bg-purple-600/10 text-purple-600 dark:text-purple-400 rounded-full text-sm font-bold">
+            <span className="px-2 md:px-3 py-1 bg-purple-600/10 text-purple-600 dark:text-purple-400 rounded-full text-xs md:text-sm font-bold">
               {lang === 'en' ? tool.targetAudienceEn : tool.targetAudienceAr}
             </span>
             {tool.releaseYear && (
-              <span className="px-3 py-1 bg-slate-500/10 text-slate-600 dark:text-slate-400 rounded-full text-sm font-mono">
+              <span className="px-2 md:px-3 py-1 bg-slate-500/10 text-slate-600 dark:text-slate-400 rounded-full text-xs md:text-sm font-mono">
                 {tool.releaseYear}
               </span>
             )}
