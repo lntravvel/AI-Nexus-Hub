@@ -169,18 +169,18 @@ const SavedScreen = ({ savedTools, onToolClick, lang }: { savedTools: Tool[], on
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mobile-grid">
           {savedTools.map((tool) => (
             <div key={tool.id} className="glass-panel glow-border rounded-2xl overflow-hidden flex flex-col group cursor-pointer" onClick={() => onToolClick(tool)}>
-              <div className="h-48 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
+              <div className="h-32 md:h-48 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] to-transparent opacity-60 z-10"></div>
                 <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src={tool.banner} alt={lang === 'en' ? tool.nameEn : tool.nameAr} referrerPolicy="no-referrer" />
-                <div className="absolute bottom-3 left-3 z-20 flex gap-2">
-                  <span className="px-2 py-1 bg-black/50 backdrop-blur-md rounded-md text-[10px] font-bold text-white uppercase tracking-wider border border-white/10">
+                <div className="absolute bottom-2 md:bottom-3 left-2 md:left-3 z-20 flex gap-2">
+                  <span className="px-1.5 md:px-2 py-0.5 md:py-1 bg-black/50 backdrop-blur-md rounded-md text-[8px] md:text-[10px] font-bold text-white uppercase tracking-wider border border-white/10">
                     {tool.category}
                   </span>
                 </div>
               </div>
-              <div className="p-6 flex flex-col flex-1 relative">
-                <div className="absolute -top-10 right-6 z-20 size-16 rounded-xl bg-[#0a0f1a] p-1 shadow-xl border border-white/10">
-                  <div className="w-full h-full rounded-lg overflow-hidden bg-white">
+              <div className="p-3 md:p-6 flex flex-col flex-1 relative">
+                <div className="absolute -top-6 md:-top-10 right-3 md:right-6 z-20 size-12 md:size-16 rounded-xl bg-[#0a0f1a] p-1 shadow-xl border border-white/10">
+                  <div className="w-full h-full rounded-lg md:rounded-[10px] overflow-hidden bg-white">
                     <img src={tool.logo} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </div>
                 </div>
@@ -217,8 +217,19 @@ const Header = ({ onSearch, onLangToggle, currentScreen, onBack, lang }: {
   lang: 'en' | 'ar'
 }) => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/50 dark:border-slate-800/50 bg-white/80 dark:bg-[#0a0f1a]/80 backdrop-blur-xl shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 h-14 md:h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/50 dark:border-slate-800/50 bg-white/80 dark:bg-[#0a0f1a]/80 backdrop-blur-xl shadow-sm flex flex-col">
+      {/* Top Banner: Profile */}
+      <div className="w-full bg-blue-600/10 border-b border-blue-600/20 py-1 flex items-center justify-center gap-2 px-4">
+        <div className="size-6 md:size-8 rounded-full overflow-hidden border border-blue-600/30">
+          <img src="/profile.png" alt="Mostafa El-Kholy" className="w-full h-full object-cover object-[center_20%]" />
+        </div>
+        <span className="text-xs md:text-sm font-bold text-blue-600 dark:text-blue-400">
+          Mostafa El-Kholy's Project
+        </span>
+      </div>
+      
+      {/* Main Header */}
+      <div className="max-w-7xl mx-auto px-4 h-12 md:h-16 flex items-center justify-between w-full">
         <div className="flex items-center gap-2 md:gap-3">
           {currentScreen !== 'home' && (
             <button 
@@ -229,10 +240,10 @@ const Header = ({ onSearch, onLangToggle, currentScreen, onBack, lang }: {
             </button>
           )}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => onBack && currentScreen !== 'home' && onBack()}>
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-1 md:p-1.5 rounded-lg md:rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-600/20">
-              <Hub className="w-5 h-5 md:w-6 md:h-6" />
+            <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-1 md:p-1.5 rounded-lg md:rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-600/20 hidden sm:flex">
+              <Hub className="w-4 h-4 md:w-6 md:h-6" />
             </div>
-            <h1 className="text-base md:text-xl font-extrabold tracking-tight text-gradient">
+            <h1 className="text-sm md:text-xl font-extrabold tracking-tight text-gradient">
               AI Nexus Hub
             </h1>
           </div>
@@ -243,7 +254,8 @@ const Header = ({ onSearch, onLangToggle, currentScreen, onBack, lang }: {
             className="flex items-center gap-1 md:gap-1.5 text-xs md:text-sm font-bold hover:text-blue-600 transition-colors px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl border border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-800/50 shadow-sm"
           >
             <Language className="w-3.5 h-3.5 md:w-4 md:h-4" />
-            <span>{lang === 'en' ? 'العربية' : 'English'}</span>
+            <span className="hidden sm:inline">{lang === 'en' ? 'العربية' : 'English'}</span>
+            <span className="sm:hidden">{lang === 'en' ? 'ع' : 'EN'}</span>
           </button>
           <button 
             onClick={onSearch}
@@ -455,8 +467,8 @@ const HomeScreen = ({ onToolClick, onBrowseAll, onCategoryClick, lang }: { onToo
                  document.addEventListener('mouseup', onMouseUp);
                }}>
             {[...TOOLS.slice(0, 8), ...TOOLS.slice(0, 8)].map((tool, idx) => (
-              <div key={`${tool.id}-${idx}`} onClick={() => onToolClick(tool)} className="flex-none w-[240px] md:w-[280px] glass-panel glow-border p-3 md:p-4 rounded-2xl flex items-center gap-3 md:gap-4 cursor-pointer hover:shadow-lg transition-all group">
-                <div className="size-10 md:size-12 rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden shrink-0 shadow-inner">
+              <div key={`${tool.id}-${idx}`} onClick={() => onToolClick(tool)} className="flex-none w-[180px] md:w-[280px] glass-panel glow-border p-3 md:p-4 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-4 cursor-pointer hover:shadow-lg transition-all group">
+                <div className="size-10 md:size-12 rounded-lg md:rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden shrink-0 shadow-inner">
                   <img src={tool.logo} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -621,33 +633,33 @@ const CategoriesScreen = ({ onToolClick, lang }: { onToolClick: (t: Tool) => voi
             <div 
               key={tool.id} 
               onClick={() => onToolClick(tool)}
-              className="glass-panel glow-border rounded-2xl overflow-hidden flex flex-col hover:shadow-xl transition-all group cursor-pointer"
+              className="glass-panel glow-border rounded-xl md:rounded-2xl overflow-hidden flex flex-col hover:shadow-xl transition-all group cursor-pointer"
             >
-              <div className="h-40 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
+              <div className="h-28 md:h-40 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
                 <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={tool.banner} alt={lang === 'en' ? tool.nameEn : tool.nameAr} referrerPolicy="no-referrer" />
               </div>
-              <div className="p-5 flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="size-10 rounded-xl bg-white/10 dark:bg-slate-800/50 p-1.5 flex items-center justify-center overflow-hidden shadow-inner">
+              <div className="p-3 md:p-5 flex flex-col flex-1">
+                <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                  <div className="size-8 md:size-10 rounded-lg md:rounded-xl bg-white/10 dark:bg-slate-800/50 p-1 md:p-1.5 flex items-center justify-center overflow-hidden shadow-inner shrink-0">
                     <img src={tool.logo} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-lg font-bold truncate group-hover:text-blue-500 transition-colors">{lang === 'en' ? tool.nameEn : tool.nameAr}</h4>
+                    <h4 className="text-sm md:text-lg font-bold truncate group-hover:text-blue-500 transition-colors">{lang === 'en' ? tool.nameEn : tool.nameAr}</h4>
                     {tool.releaseYear && (
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{tool.releaseYear}</span>
+                      <span className="text-[9px] md:text-[10px] text-slate-500 dark:text-slate-400 font-mono hidden md:inline-block">{tool.releaseYear}</span>
                     )}
                   </div>
                 </div>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 flex-1 line-clamp-2">
+                <p className="text-slate-500 dark:text-slate-400 text-xs md:text-sm mb-3 md:mb-6 flex-1 line-clamp-2 md:line-clamp-2 leading-relaxed">
                   {lang === 'en' ? tool.descriptionEn : tool.descriptionAr}
                 </p>
-                <div className="flex gap-3">
+                <div className="flex gap-2 md:gap-3">
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
                       onToolClick(tool);
                     }}
-                    className="flex-1 bg-blue-600/10 hover:bg-blue-600/20 text-blue-600 text-sm font-bold py-2.5 rounded-xl transition-colors"
+                    className="flex-1 bg-blue-600/10 hover:bg-blue-600/20 text-blue-600 text-xs md:text-sm font-bold py-1.5 md:py-2.5 rounded-lg md:rounded-xl transition-colors"
                   >
                     {t.viewDetails}
                   </button>
@@ -658,7 +670,7 @@ const CategoriesScreen = ({ onToolClick, lang }: { onToolClick: (t: Tool) => voi
                     onClick={(e) => {
                       e.stopPropagation();
                     }}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center text-sm font-bold py-2.5 rounded-xl transition-colors shadow-lg shadow-blue-600/20 cursor-pointer"
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center text-xs md:text-sm font-bold py-1.5 md:py-2.5 rounded-lg md:rounded-xl transition-colors shadow-lg shadow-blue-600/20 cursor-pointer"
                   >
                     {t.tryNow}
                   </a>
@@ -726,25 +738,25 @@ const CategoryDetailsScreen = ({ category, onToolClick, lang }: { category: Cate
             <div 
               key={tool.id} 
               onClick={() => onToolClick(tool)}
-              className="glass-panel glow-border rounded-2xl overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 group cursor-pointer"
+              className="glass-panel glow-border rounded-xl md:rounded-2xl overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 group cursor-pointer"
             >
-              <div className="h-48 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
+              <div className="h-28 md:h-48 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
                 <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src={tool.banner} alt={lang === 'en' ? tool.nameEn : tool.nameAr} referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <span className="text-white text-xs font-medium bg-blue-600/80 px-2 py-1 rounded backdrop-blur-sm">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2 md:p-4">
+                  <span className="text-white text-[10px] md:text-xs font-medium bg-blue-600/80 px-1.5 md:px-2 py-0.5 md:py-1 rounded backdrop-blur-sm">
                     {lang === 'en' ? tool.targetAudienceEn : tool.targetAudienceAr}
                   </span>
                 </div>
               </div>
-              <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="size-12 rounded-xl bg-white/10 dark:bg-slate-800/50 p-2 flex items-center justify-center overflow-hidden shadow-inner">
+              <div className="p-3 md:p-6 flex flex-col flex-1">
+                <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                  <div className="size-8 md:size-12 rounded-lg md:rounded-xl bg-white/10 dark:bg-slate-800/50 p-1 md:p-2 flex items-center justify-center overflow-hidden shadow-inner shrink-0">
                     <img src={tool.logo} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-xl font-bold truncate group-hover:text-blue-500 transition-colors">{lang === 'en' ? tool.nameEn : tool.nameAr}</h4>
+                    <h4 className="text-sm md:text-xl font-bold truncate group-hover:text-blue-500 transition-colors">{lang === 'en' ? tool.nameEn : tool.nameAr}</h4>
                     {tool.releaseYear && (
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{tool.releaseYear}</span>
+                      <span className="text-[9px] md:text-[10px] text-slate-500 dark:text-slate-400 font-mono hidden md:inline-block">{tool.releaseYear}</span>
                     )}
                   </div>
                 </div>
